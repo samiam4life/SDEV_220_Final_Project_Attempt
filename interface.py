@@ -1,5 +1,5 @@
 import tkinter as tk
-import classes
+from classes import Inventory
 
 class InventoryGUI:
     def __init__(self, root):
@@ -24,10 +24,13 @@ class InventoryGUI:
         self.update_button.pack()
 
     def add_product(self):
+        pass
 
     def remove_product(self):
+        pass
 
     def update_quantity(self):
+        pass
 
 root = tk.Tk()
 app = InventoryGUI(root)

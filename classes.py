@@ -70,6 +70,7 @@ class Notification():
 # Set up GUI elements and connect to inventory classes
 
 if __name__ == "__main__":
+    pass
     # Initialize inventory, notification, and GUI
     # Set up event handlers to manage interactions between GUI and inventory classes
     # Start GUI application loop
