@@ -61,7 +61,7 @@ class InventoryGUI:
             # Update quantity of selected item
             self.inventory.update_quantity(item_id, new_quantity)
 
-            self.refresh_product_display()
+            
 
     def add_product(self):
         product_name = self.product_name_entry.get()
@@ -80,20 +80,24 @@ class InventoryGUI:
         self.refresh_product_display()
 
     def remove_product(self):
-        print("Inside remove_product method")  # Debugging check
-        selected_product = self.product_display.get(tk.ANCHOR)
-
-        if selected_product:
-            item_id = int(selected_product.split(':')[1].split(',')[0])
-            print(f"Item ID to delete: {item_id}") # Debugging check
+        selected_index = self.product_display.curselection()
+        if selected_index:  # Check if any item is selected
+            item_id = int(self.product_display.get(selected_index[0]).split(':')[1].split(',')[0])
+            print(f"Item ID to delete: {item_id}")  # Debugging check
 
             delete_query = f"DELETE FROM items WHERE id = {item_id}" # Debugging check
             print(f"Executing query: {delete_query}") # Debugging check
-        
-            self.cursor.execute("DELETE FROM items WHERE id = ?", (item_id,))
-            self.conn.commit()
+
+            try:
+                self.cursor.execute("DELETE FROM items WHERE id = ?", (item_id,))
+                self.conn.commit()
+                print("Deletion successful!")  # Debugging check
+            except Exception as e:
+                print(f"Deletion failed: {e}")  # Debugging check
 
             self.refresh_product_display()
+        else:
+            print("Please select an item to remove.")
 
     def update_quantity(self):
         selected_product = self.product_display.get(tk.ANCHOR)
@@ -114,6 +118,7 @@ class InventoryGUI:
     
         self.product_display.delete('0', 'end')
 
+        print(products)
         for product in products:
             self.product_display.insert(tk.END, f"ID: {product[0]}, Name: {product[1]}, Quantity: {product[2]}\n")
 

@@ -8,8 +8,16 @@ def setup_database():
         CREATE TABLE IF NOT EXISTS items (
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
-            quantity INTEGER NOT NULL
+            quantity INTEGER NOT NULL,
+            threshold REAL
         )
+    ''')
+
+def set_default_threshold():
+    cursor.execute('''
+        UPDATE items
+        SET threshold = quantity * 0.34
+        WHERE threshold IS NULL
     ''')
 
 def add_item(name, quantity):
