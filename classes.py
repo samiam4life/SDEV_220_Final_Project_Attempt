@@ -5,7 +5,9 @@
 
 # Inventory class - manages collection of Product instances - methods: add products, remove products, update product quantity
 
-# Notification class - handles notification mechanism for low inventory levels - methods: send notification alert
+# Notification class - handles notification mechanism for low inventory levels - methods: send notification message
+
+from database import get_items
 
 class Product():
     def __init__(self, name, id, quantity, threshold):
@@ -17,16 +19,14 @@ class Product():
     def __str__(self):
         return f"{self.name} (ID: {self.id}) - Quantity: {self.quantity}, Threshold: {self.threshold}"
 
-    # Methods for managing product details
-
-dice = Product("Dice", "DICE001", 50, 10)
-minis = Product("Minis", "MINI002", 20, 5)
-board_games = Product("Board Games", "BOARD003", 15, 3)
-
 
 class Inventory():
     def __init__(self):
         self.products = []
+
+    def update_inventory_from_database(self):
+        items_from_db = get_items()
+        self.products = [Product(item[1], item[0], item[2], item[2] * 0.34) for item in items_from_db]
 
     def add_product(self, product):
         self.products.append(product)

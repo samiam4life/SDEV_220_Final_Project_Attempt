@@ -1,8 +1,7 @@
-import sqlite3
+import sqlite3 
 
 conn = sqlite3.connect('inventory.db')
 cursor = conn.cursor()
-
 
 def setup_database():
     cursor.execute('''
