@@ -66,8 +66,9 @@ class Notification():
             print("Quantity is above threshold.")
 
 
+ 
 # GUI Tkinter integration
-# Set up GUI elements and connect to inventory classes
+# Set up GUI elements and connect them to inventory classes
 
 if __name__ == "__main__":
     pass
