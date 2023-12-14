@@ -44,8 +44,6 @@ class Inventory():
             if product.id == id:
                 product.quantity = new_quantity
                 break
-        else:
-            print(f"Product with ID {id} not found in inventory.")
 
     def display_inventory(self):
         for product in self.products:
