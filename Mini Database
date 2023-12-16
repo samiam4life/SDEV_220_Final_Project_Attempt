@@ -1,0 +1,58 @@
+import sqlite3
+ 
+# connecting to the database
+connection = sqlite3.connect("gfg.db")
+ 
+# cursor
+crsr = connection.cursor()
+
+crsr.execute('''DROP TABLE minis;''')
+connection.commit()
+ 
+# SQL command to create a table in the database
+sql_command = """CREATE TABLE minis ( 
+mini_num INTEGER PRIMARY KEY, 
+mini_name VARCHAR(20), 
+mini_price INTEGER, 
+mini_inventory INTEGER,
+mini_backstock INTEGER, 
+last_ordered_mini DATE);"""
+ 
+# execute the statement
+crsr.execute(sql_command)
+
+# primary key
+m_pk = [301,302,303,304,305,306,307,308,309,310]
+ 
+# Enter 5 students first names
+mini_name = ['Half-orc Barbarian','Elven Bard','Human Cleric','Gnome Druid','Halfling Fighter','Tiefling Monk','Dragonborn Paladin','Elven Ranger','Human Wizard',
+             'Dwarf Sorcerer']
+ 
+# Enter 5 students last names
+mini_price = ['5.00','5.00','5.00','5.00','5.00','5.00','5.00','5.00','5.00','5.00']
+ 
+# Enter their gender respectively
+mini_inventory = ['5','2','6','1','4','3','2','0','6','2']
+
+mini_backstock = ['20','15','3','9','0','10','16','4','20','0']
+ 
+# Enter their joining data respectively
+last_ordered_mini = ['2023-12-02', '2023-11-26', '2023-10-14', '2023-10-14', '2023-10-14','2023-10-21','2023-11-26','2023-09-30','2023-12-02',
+                '2023-09-30']
+ 
+for i in range(10):
+ 
+    # This is the q-mark style:
+     crsr.execute('INSERT INTO minis VALUES (?, ?, ?, ?, ?, ?)', 
+               (m_pk[i], mini_name[i], mini_price[i], mini_inventory[i], mini_backstock[i], last_ordered_mini[i]))
+
+ 
+# close the connection
+
+connection.commit()
+crsr.execute("SELECT * from minis")
+mini = crsr.fetchall()
+for i in mini:
+    print(i)
+
+connection.close()
